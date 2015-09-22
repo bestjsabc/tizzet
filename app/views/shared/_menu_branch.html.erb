@@ -1,0 +1,16 @@
+<%# **** See also menu_helper.rb in the app/helpers folder **** %>
+<% if menu_branch.in_menu? %>
+
+  <li class="<%= menu_item_class(menu_branch, menu_branch_counter) %>" 
+      id="<%= menu_dom_id(menu_branch, menu_branch_counter) %>"
+  >
+    <%= link_to menu_branch.title, menu_branch.url %>
+    <% if menu_children?(menu_branch) %>
+      <ul class="clearfix">
+        <%= render :partial => "/shared/menu_branch",
+                    :collection => menu_branch.children -%>
+      </ul>
+    <% end %>
+  </li>
+  
+<% end -%>

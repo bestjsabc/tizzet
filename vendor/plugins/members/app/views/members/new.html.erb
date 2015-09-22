@@ -1,0 +1,55 @@
+<%- content_for :title, @meta.browser_title.blank? ? "" : @meta.browser_title -%>
+<%- content_for :additional_javascripts do -%>
+  <script src="/javascripts/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/javascripts/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      $("#signup_form").validationEngine({
+  		validationEventTriggers:"keyup blur",
+  		animateSubmit:false
+  		});
+    });
+  </script>
+<%- end -%>
+<%= error_messages_for :member %>
+<h1>Sign Up</h1>
+<h2>
+  Fill out the form below with your details so we can get you started.
+</h2>
+<% semantic_form_for(@member, :url => members_path, :html => {:id => "signup_form", :class => "base"}) do |form| %>
+    <% form.inputs do %>
+      <%= form.input :email, :input_html => {:class => "validate[custom[email]]"} %>
+    <%- end -%>
+    <% form.inputs do %>
+      <%= form.input :password, :input_html => {:class => "validate[required]"} %>
+      <%= form.input :password_confirmation, :input_html => {:class => "validate[required]"} %>
+    <%- end -%>
+    <% form.inputs do %>
+      <%= form.input :title, :as => :select, :collection => Member.salutation.map{|salutation| [salutation, salutation]} %>
+      <%= form.input :first_name, :input_html => {:class => "validate[required]"} %>
+      <%= form.input :last_name, :input_html => {:class => "validate[required]"} %>
+      <%= form.input :address, :as => :text, :input_html => {:class => "validate[required]"} %>
+      <%= form.input :city, :inner_html => {:class => "validate[required]"} %>
+      <%= form.input :post_code, :input_html => {:class => "validate[required]"} %>
+      <%= form.input :territory_state, :collection => @state.map{|state| [state, state]}, :input_html => {:class => "validate[required]"} %>
+      <%= form.input :country, :input_html => {:class => "validate[required]"} %>
+      <%= form.input :day_phone, :input_html => {:class => "validate[required]"} %>
+      <%= form.input :home_phone, :required => false %>
+      <%= form.input :mobile_phone, :required => false %>
+      <%= form.input :referal, :as => :select, :collection => @referal.map{|referal| [referal, referal]} %>
+    <%- end -%>
+    <%- form.inputs do -%>
+      <li>
+        <label>I agree to the Tizzet<br /><a href="/pages/terms-conditions">terms &amp; conditions</a></label> 
+        <input type="checkbox" name="member[agreement]" value="1" id="user_agreement" class="validate[required] checkbox">
+      </li>
+    <%- end -%>
+    <% if just_installed? %>
+      <% Refinery::Plugins.registered.titles.each do |plugin| %>
+        <%= hidden_field_tag 'member[plugins][]', plugin, :id => "plugins_#{plugin.downcase.gsub(" ", "_")}"  %>
+      <% end %>
+    <%- end -%>
+    <% form.buttons do %>
+      <%= form.commit_button :button_html => {:value => "Sign Up"} %>
+    <% end %>
+<% end %>

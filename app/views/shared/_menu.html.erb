@@ -1,0 +1,7 @@
+<% cache(:action_suffix => "site_menu") do %>
+  <ul id='<%= dom_id ||= "menu" %>' class='menu clearfix'>
+
+<%# **** The below code takes all of the top level pages for the site and renders each using '_menu_branch.html.erb' **** %>
+    <%= render :partial => "/shared/menu_branch", :collection => @menu_pages -%>
+  </ul>
+<% end %>

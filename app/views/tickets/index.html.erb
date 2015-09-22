@@ -1,0 +1,25 @@
+<ul>
+	<% @tickets.each do |ticket| %>
+		<li class="ticket">
+      <ul>
+        <% ticket.orders.each do |order| %>
+          <li class="order sent unsent"> 
+
+            You need to send <%= order.quantity %> tickets to <%= order.buyer.billing_details.inspect %>.
+            Once you have sent the tickets by registered post, enter the tracking number below:
+
+            <% if (@order and @order.id == order.id) then %>
+              <% error_messages_for @order %>
+            <% end %>
+
+            <% form_for :order, order do |f| %>
+              <%= f.text_field :tracking_number %>
+              <%= f.submit 'Ship Order' %>
+            <% end %>
+
+          </li>
+        <% end %>
+      </ul>
+    </li>
+	<% end %>
+</ul>

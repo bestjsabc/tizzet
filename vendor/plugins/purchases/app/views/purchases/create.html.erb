@@ -1,0 +1,22 @@
+<%= content_for :body_id, "buy" %>
+<%- content_for :additional_javascripts do -%>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    $("#paypal_form").submit();
+  });
+</script>
+<%- end -%>
+
+<div id="breadcrumbs">
+  <ul>
+    <li><a href="/">Home</a></li>
+  </ul>
+</div>
+<h1>Processing Order</h1>
+<strong> Loading Payment......</strong>
+
+<form name="cart" id="paypal_form" method="post" action="<%= APP_CONFIG['paypal_url']%>">
+  <%= hidden_field_tag :cmd, "_s-xclick" %>
+  <%= hidden_field_tag :encrypted, @purchase.paypal_encrypted(thank_you_path) %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+</form>

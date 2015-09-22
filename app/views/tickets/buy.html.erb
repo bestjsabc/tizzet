@@ -1,0 +1,113 @@
+<%= content_for :body_id, "buy" %>
+<div id="breadcrumbs">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/search/<%= @ticket.host %>"><%= @ticket.host %></a></li>
+  </ul>
+</div>
+<h1>Buy Tickets For <%= @ticket.host %></h1>
+<%= error_messages_for :order %>
+<h2>Step 1: Event Details</h2>
+<table>
+  <tr>
+    <th>Event Name</th>
+    <th>Location of Event</th>
+    <th>Date of Event</th>
+  </tr>
+  <tr>
+    <td><%= @ticket.host %> | <%= @ticket.event %></td>
+    <td><%= @ticket.location %></td>
+    <td><%= @ticket.date.strftime("%a, %e %B, %Y") %></td>
+  </tr>
+</table>
+<h2>Step 2: Review Details</h2>
+<% form_for :order, @order, :url => orders_url, :html => {:id => "order_form", :class => "base"} do |f| %>
+<table>
+  <tr>
+    <th>Your Ticket</th>
+    <th>How Many</th>
+    <th>Cost of Tickets</th>
+    <th>Post &amp; Packing Fees</th>
+    <th><strong>Total</strong></th>
+  </tr>
+  <tr>
+    <td><%= @ticket.seating_type %></td>
+    <td>
+      <% if @ticket.individual_sales %>
+    		<label>No of tickets<br />(<%= @ticket.quantity %> available)</label><%= select(@order, :quantity, @ticket.allowed_purchase_quantites, { :include_blank => true }, :class => "ticket_quantity") %>
+        <%= f.hidden_field :price, :value => @ticket.price %>	
+    	<% else %>
+    		<label>No of tickets</label> <%= @ticket.quantity %>
+    		<%= f.hidden_field :quantity, :value => @ticket.quantity %>	
+    	<% end %>
+      at $<%= @ticket.price %> per ticket.
+    </td>
+    <td id="cost_of_tickets">
+      <% if @ticket.individual_sales %>
+    		
+    	<% else %>
+    		$<%= @ticket.quantity * @ticket.price %>
+    		<%= f.hidden_field :quantity, :value => @ticket.quantity * @ticket.price %>	
+    	<% end %>
+    </td>
+    <td id="pandp">
+      <% if @ticket.individual_sales %>
+    		
+    	<% else %>
+    		$<%= @ticket.quantity * @ticket.price / 100 %>
+    		<%= f.hidden_field :quantity, :value => @ticket.quantity * @ticket.price / 100 %>	
+    	<% end %>      
+    </td>
+    <td id="total">
+      <% if @ticket.individual_sales %>
+    		
+    	<% else %>
+    		$<%= (@ticket.quantity * @ticket.price / 100) + (@ticket.quantity * @ticket.price) %>
+    		<%= f.hidden_field :quantity, :value => (@ticket.quantity * @ticket.price / 100) + (@ticket.quantity * @ticket.price) %>	
+    	<% end %>      
+    </td>    
+  </tr>
+</table>
+<h2>Step 3: Provide Payment Information</h2>
+<ul>
+  <li>          
+    <label for="order_card_first_name">Cardholders first name</label><%= f.text_field :card_first_name %>
+  </li>
+  <li>
+    <label for="order_card_last_name">Cardholders surname</label><%= f.text_field :card_last_name %>
+  </li>
+  <li>
+    <%= f.label :card_type %><%= f.select :card_type, Order.credit_card_types_for_select %>
+  </li>
+  <li>
+    <label for="order_card_number">Credit card number</label><%= f.text_field :card_number %>
+  </li>                      
+  <li class="num">          
+    <label for="order_card_month" id="month">Expiry month</label><%= f.text_field :card_month %> <label for="order_card_year" id="year">Expiry year</label><%= f.text_field :card_year %>
+  </li>
+  <li class="num">          
+    <label for="order_card_verification">3 digit verification number</label><%= f.text_field :card_verification %>
+  </li>
+  <li>
+    <%= f.hidden_field :ticket_id, :value => @ticket.id %>
+  </li>
+</ul>	
+<h2>Step 4: Delivery &amp; Billing Address Information</h2>
+<% semantic_fields_for(current_user, :html => {:class => "base"}) do |f| %>
+  <% f.inputs do %>
+    <%= f.input :title %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :address %>
+    <%= f.input :city %>
+    <%= f.input :post_code %>
+    <%= f.input :country %>
+    <%= f.input :day_phone %>
+    <%= f.input :home_phone %>
+    <%= f.input :mobile_phone %>
+  <%- end -%>
+<% end %>
+<ul>
+  <li class="buttons"><label>&nbsp;</label><input type="submit" value="Buy" id="buy"></li>
+</ul>
+<% end %>

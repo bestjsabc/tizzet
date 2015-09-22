@@ -1,0 +1,35 @@
+<h1>Update My Account</h1>
+<ul class="breadcrumb">
+  <li><%=link_to "My Account", url_for(current_member) %></li>
+  <li>&gt;</li>
+  <li>Update Account Details</li>
+</ul>
+<% semantic_form_for(@member, :html => {:class => "base", :id => "member_update"}) do |form| %>
+    <% form.inputs do %>
+      <%= form.input :email %>
+    <%- end -%>
+    <% form.inputs :name => "leave blank to keep your current password", :class => "legend_fields" do %>
+      <%= form.input :password %>
+      <%= form.input :password_confirmation %>
+    <%- end -%>
+    <%- form.inputs :name => "Payment Details", :class => "legend_fields" do -%>
+      <%= form.input :aus_bank_num, :label => "Bank account number" %>
+      <%= form.input :bsb_num, :label => "BSB Number" %>
+      <%= form.input :paypal_email %>
+    <%- end -%>
+    <% form.inputs do %>
+      <%= form.input :title, :as => :select, :collection => Member.salutation.map{|salutation| [salutation, salutation]} %>
+      <%= form.input :first_name %>
+      <%= form.input :last_name %>
+      <%= form.input :address, :as => :text %>
+      <%= form.input :city %>
+      <%= form.input :post_code %>
+      <%= form.input :country %>
+      <%= form.input :day_phone %>
+      <%= form.input :home_phone %>
+      <%= form.input :mobile_phone %>
+    <%- end -%>
+    <% form.buttons do %>
+      <%= form.commit_button :button_html => { :value => "Update Account " } %>
+    <% end %>
+<% end %>

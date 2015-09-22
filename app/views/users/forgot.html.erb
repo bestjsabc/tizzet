@@ -1,0 +1,16 @@
+<h1>Forgot Your Password?</h1>
+<%= error_messages_for :user %>
+<% form_for :user, :html => {:class => "base"} do |f| -%>
+  <p>Enter the email address for your account.</p>
+  <ul>
+    <li>
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </li>
+    <li class="buttons">
+      <%= submit_tag 'Reset password' %>
+      or
+      <%= link_to "Cancel", login_url %>
+    </li>
+  </ul>
+<% end -%>

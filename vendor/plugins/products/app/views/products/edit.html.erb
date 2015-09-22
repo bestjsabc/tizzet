@@ -1,0 +1,72 @@
+<%= content_for :body_id, "sell" %>
+<%- content_for :additional_javascripts do -%>
+  <link rel="stylesheet" href="/stylesheets/ui-lightness/jquery-ui-datepicker.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <script src="/javascripts/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/javascripts/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script> 
+  <script src="/javascripts/jquery-ui-1.8.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      $("#ticket_date").datepicker({
+    				showOn: 'button',
+    				buttonImage: '/images/core/calendar-icon.png',
+    				buttonImageOnly: true
+    			});
+	    $("#new_ticket_form").validationEngine({
+  		  validationEventTriggers:"keyup blur",
+  		  animateSubmit:false
+  		});   
+    });
+  </script>
+<%- end -%>
+<h1>Update Ticket Details</h1>
+
+<%= error_messages_for :product %>
+
+<% form_for @product, :html => {:id => "new_ticket_form", :class => "base"} do |f| -%>
+<ul>
+  <li>
+    <h3>Event:</h3>
+    <%= @product.event %>
+  </li>
+  <li>
+    <h3>Location:</h3>
+    <%= @product.location %>
+  </li>
+  <li>
+    <h3>Territory/State:</h3>
+    <%= @product.territory_state %>
+  </li>
+  <li id="datefield" class="clear">
+    <h3>Date:</h3>
+    <%= @product.date.strftime("%a, %d %B %Y") %>
+  </li>
+  <li><h2>Edit your ticket details</h2></li>
+  <li id="datefield" class="clear">
+    <%= label_tag 'List Until' %><%= f.date_select :list_until, :class => "validate[required]", :order => [:day, :month, :year] %>
+  </li>
+  <li id="datefield" class="clear">
+    <%= label_tag 'Start Time' %><%= f.time_select :start_time, :class => "validate[required]" %>
+  </li>
+  <li class="clearfix">
+    <h2>How many tickets do you have to sell? </h2>
+    <p>The tickets must be seated together, if not you will need to list the tickets separataly.</p>
+    <ul>
+      <li>
+        <%= label_tag 'Quantity On Hand' %>
+        <%= f.text_field :quantity_on_hand, :class => "numbr validate[required]" %>
+      </li>
+    </ul>
+  </li>
+  <li class="clearfix" id="price_field">
+    <%= label_tag 'Price Per Ticket' %>
+    <%= f.text_field :price, :class => "numbr validate[required]" %>
+  </li>
+  <li class="clearfix">
+    <%= label_tag '' %>
+    <%= f.check_box :individual_sales %>Sell individual tickets?
+  </li>
+  <li class="buttons">
+    <%= submit_tag 'Update Ticket' %>
+  </li>
+</ul>
+<% end -%>

@@ -1,0 +1,66 @@
+<%= content_for :body_id, "sell" %>
+<%- content_for :additional_javascripts do -%>
+  <link rel="stylesheet" href="/stylesheets/ui-lightness/jquery-ui-datepicker.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <script src="/javascripts/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/javascripts/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script> 
+  <script src="/javascripts/jquery-ui-1.8.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      $("#ticket_date").datepicker({
+    				showOn: 'button',
+    				buttonImage: '/images/core/calendar-icon.png',
+    				buttonImageOnly: true
+    			});
+	    $("#new_ticket_form").validationEngine({
+  		  validationEventTriggers:"keyup blur",
+  		  animateSubmit:false
+  		});   
+    });
+  </script>
+<%- end -%>
+<h1>Enter details for the ticket you are selling.</h1>
+
+<%= error_messages_for :ticket %>
+
+<% form_for :ticket, @ticket, :url => tickets_url, :html => {:id => "new_ticket_form", :class => "base"} do |f| -%>
+<ul>
+  <li>
+    <%= label_tag 'Event' %><%= f.text_field :event, :class => "validate[required]" %>
+  </li>
+  <li>
+    <%= label_tag 'Event location' %><%= f.text_field :location, :class => "validate[required]" %>
+  </li>
+  <li>
+    <label>Territory/State</label>
+    <%= f.select(:territory_state, @state.map{|state| [state, state]}, :class => "validate[required]") %>
+  </li>
+  <li id="datefield" class="clear">
+    <%= label_tag 'Date of Event' %><%= f.text_field :date, :class => "validate[required]" %>
+  </li>
+  <li class="radio clearfix">
+    <h2>What are your tickets for?</h2>
+    <% Ticket.event_types.each do |event_type| %>
+      <ul>
+        <li class="<%= event_type.gsub(" ", "_").downcase %>"><%= f.radio_button("event_type", event_type, :class => "validate[required]") %><label><%= event_type.humanize %></label></li>
+      </ul>
+  	<% end %>
+  </li>
+  <li class="num">
+    <h2>How many tickets do you have to sell? </h2><p>The tickets must be seated together, if not you will need to list the tickets separataly.</p>
+    <%= label_tag 'Number of tickets' %><%= f.text_field :quantity, :class => "validate[required]" %>
+  </li>
+  <li>
+    <h2>What type of tickets are they?</h2><p>Specific Seats or General Admission (Standing)</p>
+    <%= label_tag 'Ticket type' %><%=   f.select(:seating_type, Ticket.seating_types.map {|e| [e,e]}) %>
+  </li>
+  <li>
+    <%= label_tag 'Sell individual tickets?' %><%= f.check_box :individual_sales %>
+  </li>
+  <li class="num">
+    <%= label_tag 'Price' %><%= f.text_field :price, :class => "validate[required]" %>
+  </li>
+  <li class="buttons">
+   <label>&nbsp;</label> <%= submit_tag 'Sell ticket' %>
+  </li>
+</ul>
+<% end -%>

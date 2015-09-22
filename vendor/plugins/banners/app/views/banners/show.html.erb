@@ -1,0 +1,70 @@
+<% content_for :body_content_title do %>
+  <%= @banner.product_id %>
+<% end %>
+
+<% content_for :body_content_left do %>
+  
+  <div>
+    <h3>Product</h3>
+    <%= @banner.product_id %>
+  </div>
+  
+  <div>
+    <h3>Parent</h3>
+    <%= @banner.parent_id %>
+  </div>
+  
+  <div>
+    <h3>Content Type</h3>
+    <%= @banner.content_type %>
+  </div>
+  
+  <div>
+    <h3>Filename</h3>
+    <%= @banner.filename %>
+  </div>
+  
+  <div>
+    <h3>Thumbnail</h3>
+    <%= @banner.thumbnail %>
+  </div>
+  
+  <div>
+    <h3>Size</h3>
+    <%= @banner.size %>
+  </div>
+  
+  <div>
+    <h3>Width</h3>
+    <%= @banner.width %>
+  </div>
+  
+  <div>
+    <h3>Height</h3>
+    <%= @banner.height %>
+  </div>
+  
+  <div>
+    <h3>Image Type</h3>
+    <%= @banner.image_type %>
+  </div>
+  
+  <div>
+    <h3>Archived</h3>
+    <%= @banner.archived %>
+  </div>
+  
+<% end %>
+
+<% content_for :body_content_right do %>
+  <h2>Other Banners</h2>
+  <ul id="banners">
+    <% @banners.each do |banner| %>
+      <li>
+        <%= link_to banner.product_id, banner_url(banner) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= render :partial => "/shared/content_page" %>

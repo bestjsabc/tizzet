@@ -1,0 +1,94 @@
+<%= error_messages_for :product -%>
+<% form_for [:admin, @product] do |f| -%>
+  
+  <div class='field'>
+    <%= f.label :hot_ticket_pick -%>
+    <%= f.check_box :hot_ticket_pick -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :active -%>
+    <%= f.select(:status, Product.ticket_status) -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :event_type -%>
+    <%= f.select(:event_type, Product.event_types.map {|e| [e,e]}) -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :event -%>
+    <%= f.text_field :event -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :seating_type -%>
+    <%= f.select(:seating_type, Product.seating_types.map {|e| [e,e]}) -%>
+  </div>
+  
+  <% if @product.seating_type == "Seated" %>
+  <p>Seat Info</p>
+  <ul>
+    <li><%= @product.seating_block unless @product.seating_block.nil? %></li>
+    <li><%= @product.seating_row unless @product.seating_row.nil? %></li>
+    <li><%= @product.seat_number unless @product.seat_number.nil? %></li>
+  </ul>
+  <% end %>
+  
+  <div class='field'>
+    <%= f.label :individual_sales -%>
+    <%= f.check_box :individual_sales -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :date, "Event Date" -%>
+    <%= f.date_select :date -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :date, "Start Time" -%>
+    <%= f.time_select :start_time -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :list_until -%>
+    <%= f.date_select :list_until -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :location -%>
+    <%= f.text_field :location -%>
+  </div>
+  
+  <div class='field'>
+    <%= label_tag "Seller Email"  -%>
+    <%= Member.find(@product.seller_id).email -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :quantity, "Initial Quantity" -%>
+    <%= f.text_field :quantity -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :quantity_on_hand, "Quantity On Hand" -%>
+    <%= f.text_field :quantity_on_hand -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :quantity_sold, "Quantity Sold" -%>
+    <%= f.text_field :quantity_sold -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :price -%>
+    <%= f.text_field :price -%>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :territory_state -%>
+    <%= f.select :territory_state, Member.territory_state.map {|state| [state, state]} %>
+  </div>
+  
+  <%= render :partial => "/shared/admin/form_actions", :locals => {:f => f, :continue_editing => false} %>
+<% end -%>

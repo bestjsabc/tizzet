@@ -1,0 +1,21 @@
+<div class='clearfix'>
+  <div id='records'>
+    <%= render :partial => "recent_activity" %>
+  </div>
+  <div id='actions'>
+    <h2>Common Tasks</h2>
+    <ul>
+      <% if Refinery::Plugins.active.titles.include?("Pages") %>
+        <li>
+          <%= link_to "Add a new page", new_admin_page_url, :class => "add_icon" %>
+        </li>
+        <li>
+          <%= link_to "Update a page", admin_pages_url, :class => "edit_icon" %>
+        </li>
+      <% end %>
+      <li>
+        <%= link_to "See home page", root_url, :class => "go_icon", :target => "_blank" %>
+      </li>
+    </ul>
+  </div>
+</div>

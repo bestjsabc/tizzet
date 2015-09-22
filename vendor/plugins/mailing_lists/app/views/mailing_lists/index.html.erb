@@ -1,0 +1,11 @@
+<% content_for :body_content_left do %>
+  <ul id="mailing_lists">
+    <% @mailing_lists.each do |mailing_list| %>
+      <li>
+        <%= link_to mailing_list.name, mailing_list_url(mailing_list) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= render :partial => "/shared/content_page" %>

@@ -1,0 +1,50 @@
+<style type="text/css" media="screen">
+  * {font-family:Arial; font-size:12px;}
+  h1 {font-size:16px; color:#ff8105;}
+  h2 {font-size:14px;}
+  p {font-size:12px;}
+  img {float:right;}
+  
+  table {width:100%; border:1px #999999 solid; border-collapse:collapse;}
+  th, td {text-align:left; border:1px #999999 solid; border-collapse:collapse; padding:5px;}
+</style>
+<a href="http://www.tizzet.com.au"><img src="http://www.tizzet.webfirmdemo.com/images/core/logo-tizzet.gif" id="" alt="Tizzet" /></a>
+<h1>Thank you for purchasing a ticket through Tizzet</h1>
+<h2>PLEASE KEEP HOLD OF THIS EMAIL</h2>
+<p>Your ticket purchase details are below</p>
+<table>
+  <thead>
+    <tr>
+      <th>Name of event / artist</th>
+      <th>Seating</th>
+      <th>Date</th>
+      <th>Start Time</th>
+      <th>Price Per Ticket</th>
+      <th>Quantity</th>
+      <th>Tizzet Fees</th>
+      <td><strong>Total</strong></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @purchase.event %></td>
+      <td>
+        <%= @purchase.seating_type %><br />
+        <%- if @purchase.seating_type == "Seated" -%>
+          Seating Block: <%= @purchase.seating_block %><br />
+          Seating Row: <%= @purchase.seating_row %><br />
+        <%- end -%>
+      </td>
+      <td><%= @purchase.date.strftime("%d %b %Y") %></td>
+      <td><%= @purchase.start_time.strftime("%H:%M") %></td>
+      <td><%=h number_to_currency @purchase.price, :unit => '$', :separator => ".", :delimiter => "." %></td>
+      <td><%= @purchase.quantity %></td>
+      <td><%=h number_to_currency @purchase.buyer_fee, :unit => '$' %></td>
+      <td><%=h number_to_currency @purchase.total_with_buyer_fee, :unit => '$' %></td>
+    </tr>
+  </tbody>
+</table>
+<h2>Have You Recieved Your Tickets?</h2>
+<p>Your tickets will be mailed to you in the next few days. Please allow between 2 and 10 days for your tickets to arrive - of course they are guaranteed to arrive before the show if you purchase close to the event date!</p>
+<p>Once you have received your tickets you can use this link to tell Tizzet that you have recieved the tickets. <a href="http://www.tizzet.com.au/purchases/<%= @purchase.id %>/received">Received Tickets</a></p>
+<p>Alternatively login to <a href="http://www.tizzet.com.au/">www.tizzet.com.au</a>, click the My Account link at the top. From here you can manage your purchased tickets.</p>

@@ -1,0 +1,93 @@
+<%- content_for :additional_javascripts do -%>
+  <script src="/javascripts/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/javascripts/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      $("#signup_form").validationEngine({
+  		validationEventTriggers:"keyup blur",
+  		animateSubmit:false
+  		});
+    });
+  </script>
+<%- end -%>
+<%= error_messages_for :user %>
+<h1>Sign Up</h1>
+<h2>
+  Fill out the form below with your details so we can get you started.
+</h2>
+<% form_for :user, :url => users_path, :html => {:id => "signup_form", :class => "base"} do |f| -%>
+  <ul>
+    <li>
+      <%= f.label :email %>
+      <%= f.text_field :email, :class => "validate[custom[email]]" %>
+    </li>
+    <li>
+      <%= f.label :password %>
+      <%= f.password_field :password, :class => "validate[required]" %>
+    </li>
+    <li>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, :class => "validate[required,confirm[user_password]]" %>      
+    </li>
+    <li>
+      <%= f.label :title %>
+      <%= f.select(:title, @salutation.map{|salutation| [salutation, salutation]}) %>
+    </li>
+    <li>
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, :class => "validate[required]" %>
+    </li>
+    <li>
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, :class => "validate[required]" %>
+    </li>    
+    <li>
+      <%= f.label :address %>
+      <%= f.text_area :address, :class => "validate[required]" %>
+    </li>
+    <li>
+      <%= f.label :city %>
+      <%= f.text_field :city, :class => "validate[required]" %>
+    </li>
+    <li>
+      <label>Territory/State</label>
+      <%= f.select(:territory_state, @state.map{|territory_state| [territory_state, territory_state]}, :class => "validate[required]") %>
+    </li>
+    <li>
+      <%= f.label :post_code %>
+      <%= f.text_field :post_code, :class => "validate[required]" %>
+    </li>
+    <li>
+      <%= f.label :country %>
+      <%= f.text_field :country, :class => "validate[required]" %>
+    </li>
+    <li>
+      <%= f.label :day_phone %>
+      <%= f.text_field :day_phone, :class => "validate[custom[onlyNumber]]" %>
+    </li>
+    <li>
+      <%= f.label :home_phone %>
+      <%= f.text_field :home_phone %>
+    </li>
+    <li>
+      <%= f.label :mobile_phone %>
+      <%= f.text_field :mobile_phone %>
+    </li>
+    <li>
+      <label>How did you hear about us?</label>
+      <%= f.select(:referal, @referal.map{|referal| [referal, referal]}) %>
+    </li>
+    <li id="agreement">
+      <label>I agree to the TicketTrader<br /><a href="/pages/terms-conditions">terms &amp; conditions</a></label>
+      <input type="checkbox" name="user[agreement]" value="1" id="user_agreement" class="validate[required] checkbox">
+    </li>
+    <li>
+      <% if just_installed? %>
+        <% Refinery::Plugins.registered.titles.each do |plugin| %>
+          <%= hidden_field_tag 'user[plugins][]', plugin, :id => "plugins_#{plugin.downcase.gsub(" ", "_")}"  %>
+        <% end %>
+      <% end %>
+    </li> 
+    <li class="buttons"><label>&nbsp;</label><input type="submit" name="submit" value="Sign Up" id="submit"></li>                         
+  </ul>
+<% end -%>

@@ -1,0 +1,39 @@
+<div id='actions'>
+  <ul>
+    <li>
+      <%= render :partial => "/shared/admin/search", :locals => {:url => admin_mailing_lists_url} %>
+    </li>
+  <% if !searching? and MailingList.count > 1 %>
+    <li>
+      <%= link_to "Reorder Mailing Lists Entries", admin_mailing_lists_url, :id => "reorder_action", :class => "reorder_icon" %>
+      <%= link_to "Done Reordering Mailing Lists Entries", admin_mailing_lists_url, :id => "reorder_action_done", :style => "display: none;", :class => "reorder_icon" %>
+    </li>
+  <% end %>
+  </ul>
+</div>
+<div id='records'>
+  <% if searching? %>
+    <h2>Search Results for "<%= params[:search] %>"</h2>
+    <% if @mailing_lists.any? %>
+      <%= render :partial => "mailing_list", :collection => @mailing_lists %>
+    <% else %>
+      <p>Sorry, no results found.</p>
+    <% end %>
+  <% else %>
+    <% if @mailing_lists.any? %>
+      <%= will_paginate @mailing_lists, :previous_label => '&laquo;', :next_label => '&raquo;' %>
+       <ul id='sortable_list'>
+        <%= render :partial => "sortable_list" %>
+       </ul>
+      <%= will_paginate @mailing_lists, :previous_label => '&laquo;', :next_label => '&raquo;' %>
+    <% else %>
+      <p>
+        <strong>
+          There are no mailing lists yet.
+          Click "Create New Mailing List" to add your first mailing list.
+        </strong>
+      </p>
+    <% end %>
+  <% end %>
+</div>
+<%= render :partial => "/shared/admin/make_sortable", :locals => {:tree => false } if !searching? and MailingList.count > 1 %>

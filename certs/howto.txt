@@ -1,0 +1,13 @@
+# http://www.kestrelblackmore.com/blog/rails-paypal-certificate-expiration
+Commands to issue a new cert:
+
+openssl genrsa -out app_key.pem 2048
+openssl req -new -key app_key.pem -x509 -days 3650 -out app_cert.pem
+
+Then upload app_cert.pem to his Paypal
+My Account -> Profile -> My selling tools -> Encrypted payment settings
+
+Take the corresponding CERT ID and modify the rails app under:
+${APP_ROOT}/vendor/plugins/purchases/app/models/purchase.rb
+
+Commit changes, and deploy

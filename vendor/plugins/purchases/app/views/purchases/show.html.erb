@@ -1,0 +1,125 @@
+<% content_for :body_content_title do %>
+  <%= @purchase.product_id %>
+<% end %>
+
+<% content_for :body_content_left do %>
+  
+  <div>
+    <h3>Product</h3>
+    <%= @purchase.product_id %>
+  </div>
+  
+  <div>
+    <h3>Member</h3>
+    <%= @purchase.member_id %>
+  </div>
+  
+  <div>
+    <h3>Quantity</h3>
+    <%= @purchase.quantity %>
+  </div>
+  
+  <div>
+    <h3>Price</h3>
+    <%= @purchase.price %>
+  </div>
+  
+  <div>
+    <h3>Title</h3>
+    <%= @purchase.title %>
+  </div>
+  
+  <div>
+    <h3>First Name</h3>
+    <%= @purchase.first_name %>
+  </div>
+  
+  <div>
+    <h3>Last Name</h3>
+    <%= @purchase.last_name %>
+  </div>
+  
+  <div>
+    <h3>Address</h3>
+    <%= @purchase.address %>
+  </div>
+  
+  <div>
+    <h3>City</h3>
+    <%= @purchase.city %>
+  </div>
+  
+  <div>
+    <h3>Post Code</h3>
+    <%= @purchase.post_code %>
+  </div>
+  
+  <div>
+    <h3>Country</h3>
+    <%= @purchase.country %>
+  </div>
+  
+  <div>
+    <h3>Day Phone</h3>
+    <%= @purchase.day_phone %>
+  </div>
+  
+  <div>
+    <h3>Home Phone</h3>
+    <%= @purchase.home_phone %>
+  </div>
+  
+  <div>
+    <h3>Mobile Phone</h3>
+    <%= @purchase.mobile_phone %>
+  </div>
+  
+  <div>
+    <h3>Card First Name</h3>
+    <%= @purchase.card_first_name %>
+  </div>
+  
+  <div>
+    <h3>Card Last Name</h3>
+    <%= @purchase.card_last_name %>
+  </div>
+  
+  <div>
+    <h3>Card Type</h3>
+    <%= @purchase.card_type %>
+  </div>
+  
+  <div>
+    <h3>Credit Card Number</h3>
+    <%= @purchase.credit_card_number %>
+  </div>
+  
+  <div>
+    <h3>Expiry Month</h3>
+    <%= @purchase.expiry_month %>
+  </div>
+  
+  <div>
+    <h3>Expiry Year</h3>
+    <%= @purchase.expiry_year %>
+  </div>
+  
+  <div>
+    <h3>Verification Code</h3>
+    <%= @purchase.verification_code %>
+  </div>
+  
+<% end %>
+
+<% content_for :body_content_right do %>
+  <h2>Other Purchases</h2>
+  <ul id="purchases">
+    <% @purchases.each do |purchase| %>
+      <li>
+        <%= link_to purchase.product_id, purchase_url(purchase) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= render :partial => "/shared/content_page" %>

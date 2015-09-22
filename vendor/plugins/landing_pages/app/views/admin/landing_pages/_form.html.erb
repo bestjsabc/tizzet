@@ -1,0 +1,39 @@
+<%= error_messages_for :landing_page -%>
+<% form_for [:admin, @landing_page], :html => {:multipart => true} do |f| -%>
+  
+  <div class='field'>
+    <%= f.label :title -%>
+    <%= f.text_field :title, :class => "larger", :style => "width:954px" -%>
+  </div>
+  <div class='field'>
+    <%= f.label :description -%>
+    <%= f.text_area :description, :class => "wymeditor" -%>
+  </div>
+  
+  <% if params[:action] =~ /(edit)|(update)/ %>
+    <div>
+      <label>Current Image</label>
+      <%= image_fu @landing_page, :medium %>
+    </div>
+  <% end %>
+  
+  <div class='field'>
+    <%= f.label :uploaded_data, "Landing Page Image" -%>
+    <%= f.file_field :uploaded_data %>
+  </div>
+  
+  <div class='field'>
+    <%= f.label :browser_title -%>
+    <%= f.text_field :browser_title, :size => "63" -%>
+  </div>
+  <div class='field'>
+    <%= f.label :meta_keywords -%>
+    <%= f.text_field :meta_keywords, :size => "103" -%>
+  </div>
+  <div class='field'>
+    <%= f.label :meta_description -%>
+    <%= f.text_area :meta_description, :cols => "95", :rows => "3" -%>
+  </div>
+  
+  <%= render :partial => "/shared/admin/form_actions", :locals => {:f => f, :continue_editing => false} %>
+<% end -%>

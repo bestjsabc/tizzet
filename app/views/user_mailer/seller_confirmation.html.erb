@@ -1,0 +1,62 @@
+<style type="text/css" media="screen">
+  * {font-family:Arial; font-size:12px;}
+  h1 {font-size:16px; color:#ff8105;}
+  h2 {font-size:14px;}
+  p {font-size:12px;}
+  img {float:right;}
+  
+  table {width:100%; border:1px #999999 solid; border-collapse:collapse;}
+  th, td {text-align:left; border:1px #999999 solid; border-collapse:collapse; padding:5px;}
+  dt {float:left; clear:left;}
+  dd {float:left;}
+  
+  table#buyer {width:400px;}
+  
+</style>
+<a href="http://www.tizzet.com.au"><img src="http://www.tizzet.webfirmdemo.com/images/core/logo-tizzet.gif" id="" alt="Tizzet" /></a>
+<h1>Tizzet Purchase Confirmation</h1>
+<h2>A ticket you had listed on Tizzet has sold.</h2>
+<h2>Ticket Details</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name of event / artist</th>
+      <th>Date</th>
+      <th>Start Time</th>
+      <th>Price Per Ticket</th>
+      <th>Quantity</th>
+      <th>Tizzet Fees</th>
+      <td><strong>You will receive</strong></td>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <tr>
+      <td><%= @purchase.event %></td>
+      <td><%= @purchase.date.strftime("%d %b %Y") %></td>
+      <td><%= @purchase.start_time.strftime("%H:%M") %></td>
+      <td><%=h number_to_currency @purchase.price, :unit => '$', :separator => ".", :delimiter => "." %></td>
+      <td><%= @purchase.quantity %></td>
+      <td><%=h number_to_currency @purchase.seller_fee(@purchase.quantity), :unit => '$' %></td>
+      <td><%=h number_to_currency @purchase.seller_will_receive, :unit => '$' %></td>
+    </tr>
+  </tbody>
+  
+</table>
+<h2>Buyer Details</h2>
+<p>Please immediately mail the tickets to the buyers details listed below. Remember you must post tickets through Australia Post Registered Post or another method that provides tracking of your shipment</p>
+<table id="buyer">
+  <tr>
+    <td>Name:</td>
+    <td><%= @purchase.first_name %> <%= @purchase.last_name %></td>
+  </tr>
+  <tr>
+    <td>Address:</td>
+    <td>
+      <%= @purchase.address %><br />
+      <%= @purchase.city %><br />
+      <%= @purchase.post_code %><br />
+      <%= @purchase.country %><br />
+    </td>
+  </tr>
+</table>

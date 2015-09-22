@@ -1,0 +1,311 @@
+@import url('reset.css');
+@import url('validation.css');
+
+/* Common Elements ---------------------------------------------------------------------------------------------------------------------------- */
+body {font:62.5%/1.8em Arial, sans-serif; background:#000; color:#000;}
+h1 {font-size:2.6em; padding-top:20px; padding-bottom:10px; color:#ff8105;}
+h2 {font-size:17px; padding-bottom:10px;}
+h3 {font-size:15px; color:#ff8105;}
+p {font-size:1.2em; padding-bottom:20px;}
+a {color:#ff8105;}
+a:hover {text-decoration:none;}
+
+table {font-size:12px; width:100%;}
+table th {text-align:left; font-size:14px; padding:5px 0;}
+table td {padding:5px 0;}
+
+.clear {clear:both;}
+
+/* Errors Messages */
+#errorExplanation {background:#f38920; padding:10px; margin-bottom:20px; border:1px solid #484848;}
+#errorExplanation h2 {color:#000!important;}
+
+/* Container Elements ------------------------------------------------------------------------------------------------------------------------- */
+#headerwrap {background:url(/images/core/header-bg.gif) repeat-x #fff; height:220px;}
+#container {margin:0 auto;}
+#header {height:220px; width:970px; margin:0 auto; position:relative;}
+#banner {height:263px; margin-bottom:9px; position:relative;}
+#contentwrap {background:url(/images/core/content-bg.gif) no-repeat 50% 0 #fff;}
+#content {clear:both; margin:0 auto 20px auto;  width:970px; padding-top:11px;}
+#banner {height:260px; width:634px; overflow:hidden;}
+#primary {float:left; width:620px; padding:0 10px;}
+#secondary {float:right; width:316px;}
+#footerwrap {background:url(/images/core/footer-bg.gif) repeat;}
+#footer {margin:0 auto; width:970px;}
+
+/* Header Elements ---------------------------------------------------------------------------------------------------------------------------- */
+#main-nav {width:650px; padding-top:5px; float:right;}
+#main-nav li {float:right;} 
+  
+  #main-nav li a {display:block; background:url(/images/core/nav-main-home.gif) no-repeat 0 0; text-decoration:none; width:71px; height:33px; line-height:33px; text-align:center; font-size:1.1em; color:#333;}
+    #main-nav li#my_account a {background-image:url(/images/core/nav-main-long.gif); width:102px;}
+    #main-nav li#buy_tickets a {background-image:url(/images/core/nav-main-long.gif); width:102px;}
+    #main-nav li#help a {background-image:url(/images/core/nav-main-help.gif); width:60px;}
+    #main-nav li#sell_tickets a {background-image:url(/images/core/nav-main-long.gif); width:102px;}
+    #main-nav li#welcome {background-image:url(/images/core/nav-main-logged_in.gif); width:123px; padding-left:20px; font-size:1.1em;}
+    #main-nav li#welcome a {background-image:none; display:inline;}
+    #main-nav li#login_logout a {background-image:url(/images/core/nav-main-login_logout.gif); width:64px;}
+    
+    body#home-page #main-nav li#main-nav-home a,
+    /* Add additional page active states here ------------------------ */
+    #main-nav li a:hover {text-decoration:underline;}
+
+/* Login Form */    
+#login_form {width:276px; height:81px; background:url(/images/core/login-bg.gif) no-repeat; position:absolute; right:0px; display:none;}
+#login_form ul {padding:10px 0 0 15px;}
+#login_form ul li {float:left;}
+#login_form ul li.fields {width:122px; height:27px; background:url(/images/core/username-bg.gif) no-repeat; padding-bottom:10px;}
+#login_form ul li.fields label {width:122px; height:20px; padding:4px 0 0 9px; font-size:1.2em; color:#666;}
+#login_form ul li.fields input {background:none; border:none; width:110px; height:18px; padding:6px 0 0 8px; color:#666;}
+#login_form ul li input#login_btn {background:url(/images/core/login-btn-bg.gif) no-repeat; width:72px; height:19px; padding-right:20px; border:none; cursor:pointer;}
+#login_form ul li#remember {padding-left:20px;}
+#login_form ul li#remember label {color:#666; font-size:1.1em;}
+#login_form ul li#sign_up {padding-left:15px;}
+#login_form ul li#sign_up a {color:#333; font-size:1.1em;}
+    
+#logo {float:left; padding:50px 0 0 30px;}
+
+#ticket_guarantee {float:right; height:99px; overflow:hidden; margin-top:43px;}
+#ticket_guarantee img {padding-top:15px;}
+
+#search_form {float:right; width:260px; margin:55px 160px 0 0; color:#ff8105;}
+#search_form li h2 {background:url(/images/core/start_finding_tickets-bg.gif) no-repeat; text-indent:-9999em; width:160px; height:20px; padding-bottom:5px;}
+#search_form li {float:left;}
+#search_form li#search_field {background:url(/images/core/search_field.gif) no-repeat; padding-right:3px; height:57px;} 
+#search_form li label {padding:6px 5px 0 7px; font-size:1.4em; color:#999;}
+#search_form li input {width:211px; padding:6px 5px 0 5px; font-size:1.4em; color:#999; font-weight:normal; background:none; border:none;}
+#search_form li input#search_btn {width:35px; height:57px; background:url(/images/core/search_btn.gif) no-repeat; cursor:pointer;}
+	
+#cat-nav {clear:both; width:970px; background:url(/images/core/nav-bg.gif) repeat-x; height:40px;}
+#cat-nav li {float:left;}
+   
+   #cat-nav li a {display:block; text-indent:-9999em; height:40px;}
+   #cat-nav li#all_events a {background:url(/images/core/nav-all_events.gif); width:165px;}
+	#cat-nav li#concerts a {background:url(/images/core/nav-concerts.gif); width:135px;}
+	#cat-nav li#sports a {background:url(/images/core/nav-sports.gif); width:134px;}
+	#cat-nav li#theatre_arts a {background:url(/images/core/nav-theatre_arts.gif); width:141px;}
+	#cat-nav li#secure a {background:url(/images/core/nav-secure.gif); width:206px; margin-left:189px;}	
+	#cat-nav li a:hover {background-position:0 -40px!important;}
+	
+/* Banner Elements ----------------------------------------------------------------------------------------------------------------------------- */
+#featured {background:url(/images/core/featured-bg.png) no-repeat; position:absolute; list-style:none!important; margin-left:0!important; font-size:10px!important; right:-219px; height:290px; width:219px; overflow:hidden; z-index:10;}
+#featured li {height:66px; padding:10px;}
+#featured li h3 {font-size:1.5em; color:#fff;}
+#featured li p {color:#fff; padding:5px 0 5px 0; font-size:11px!important;}
+#featured li a {display:block; height:19px; width:72px; background:url(/images/core/find_ticket-bg.gif) no-repeat; text-indent:-9999em;}
+#hosts {float:left; width:634px; list-style:none!important; margin-left:0!important;}
+
+/* Content Elements  --------------------------------------------------------------------------------------------------------------------------- */
+
+  /* Primary Elements ------------------------------------------------- */
+  body#home-page #primary {padding:0;}
+  body#home-page #primary h2 {color:#fff;}
+  #cta {width:634px; background:#fc861d; height:147px; list-style:none!important; margin-left:0!important ;}
+  #cta li {float:left; padding:18px 0 0 27px; height:129px; width:288px;}
+  #cta li#buy {background:url(/images/core/cta-1-bg.gif) no-repeat; margin-right:4px;}
+  #cta li#sell {background:url(/images/core/cta-2-bg.gif) no-repeat;}
+  #cta h2 {padding-bottom:5px;}
+  #cta p {padding-bottom:5px; color:#fff;}
+  .more {display:block; width:98px; height:27px; background:url(/images/core/cta-more-bg.gif) no-repeat; color:#fff; padding-left:10px; line-height:27px; text-decoration:none; font-size:1.2em;}
+  .more:hover {color:#fc861d;}
+  
+  #more_on_tizzet {background:url(/images/core/primary-bg.gif) no-repeat; height:123px; width:582px; padding:25px 26px 0 26px;}
+  #more_on_tizzet h2 {padding-bottom:10px;}
+  #more_on_tizzet p {padding-bottom:5px; color:#fff;}
+
+  
+  /* Secondary Elements ----------------------------------------------- */
+  #latest_tickets {width:316px; background:url(/images/core/latest_tickets-bot-bg.gif) no-repeat 0 bottom; padding-bottom:14px;}
+  #latest_tickets dt {background:url(/images/core/latest_tickets.gif) no-repeat; width:316px; height:53px; text-indent:-9999em;}
+  #latest_tickets dd {margin:0 5px; background:url(/images/core/latest_tickets-bg.gif) repeat-y; height:27px; line-height:27px; padding-left:9px; padding-bottom:1px;}
+  #latest_tickets dd a {display:block; border-bottom:1px dotted #ccc; width:250px; padding-left:33px; font-size:1.2em; text-decoration:none; color:#333;}
+  #latest_tickets dd a:hover {text-decoration:underline;}
+  
+  #mailing_list {padding-top:10px; height:30px; width:290px;}
+  #mailing_list li {float:left; background:url(/images/core/mailing-bg.gif) no-repeat; width:116px; height:29px; padding-right:5px;}
+  #mailing_list li label {font-size:1.2em; height:23px; padding:5px 0 0 6px;}
+  #mailing_list li input {background:none; border:none; height:23px; padding:7px 0 0 5px; width:110px;}
+  #mailing_list li#button {background:url(/images/core/mailing-btn-bg.gif) no-repeat; width:36px; height:29px; padding-right:0;}
+  #mailing_list li#button input#mailing_btn {cursor:pointer; width:36px; height:29px;}
+  #secondary h2 {color:#ff8105; padding:20px 0 10px 0;}
+  #secondary h3 {color:#fff;}
+  #secondary p {padding-bottom:5px; color:#999;}
+  #search_location {background:url(/images/core/search_location-bg.gif) no-repeat; width:295px; height:169px; color:#fff; padding:12px 0 0 18px; margin-top:17px}
+  #search_location h3 {padding-bottom:30px;}
+  #aus_map {float:left; width:60px;}
+  #australia_states {float:right; width:210px; font-size:11px; list-style:disc; color:#ccc;}
+  #australia_states li {float:left; width:105px;}
+  #australia_states li a {color:#f89828;}
+  
+  /* Additional Page Elements ----------------------------------------- */
+   
+   /* Search Page Elements ------------------------------- */
+   #breadcrumbs {background:url(/images/core/breadcrumb-bg.gif) no-repeat; height:27px; padding:10px 0 0 30px; width:634px;}
+   #breadcrumbs li:first-child {background:none; padding-left:0;}
+   #breadcrumbs li a {color:#fff;}
+   #breadcrumbs li {background:url(/images/core/crumb_arrow.gif) no-repeat 0 50%; float:left; font-size:1.2em; padding:0 10px 0 10px; color:#333;}
+   #search_results li {height:100px; border-bottom:1px solid #ccc; margin-top:10px;}
+   #search_results li:last-child {border-bottom:none;}
+   #search_results li ul li {float:left; border-bottom:none;}
+   #search_results li ul li h3 {font-size:1.4em;}
+   #search_results li ul li p {padding-bottom:0;}
+   #search_results li ul li#icon {width:40px; height:40px;}
+   #search_results li ul li#date {width:170px;}
+   #search_results li ul li#location {width:150px;}
+   #search_results li ul li#seating {width:120px;}
+   #search_results li ul li#buy {width:120px;}
+   #search_results li ul li#buy a {background:url(/images/core/buy-bg.gif); display:block; width:47px; height:25px; text-indent:-9999em;}
+   
+   .seating_info {font-size:11px!important;}
+   
+   .sport {background:url(/images/core/soccer_chevron.gif) no-repeat 0 50%;}
+   .arts_and_theatre {background:url(/images/core/star_chevron.gif) no-repeat 0 50%;}
+   .concert {background:url(/images/core/guitar_chevron.gif) no-repeat 0 50%;}
+      
+   /* New User Page Elements ------------------------------- */
+   #new_user {padding-top:20px;}
+   #new_user li {background:url(/images/core/search_field.gif) no-repeat; padding-bottom:20px;}
+   #new_user li label {font-size:1.2em; height:23px; padding:6px 0 0 6px;}
+   #new_user li input {background:none; border:none; height:23px; padding:7px 0 0 5px; width:200px;}
+   #new_user li.button {background:none;}
+   #new_user li.button input {width:100px;}
+  
+
+#affiliations {clear:both; width:970px; margin:0 auto; height:100px; border-top:1px solid #e9e9e9; display:block;}
+#logos {float:right; padding:15px 10px 0 0; width:300px;} 
+#logos li {float:left; padding:10px;}
+
+#twitter_bubble {float:left; width:458px; height:66px; background:url(/images/core/twitter_bubble.gif) no-repeat 0 15px; padding-top:20px;}
+#tweet {padding:0 20px 5px 120px; font-size:1.2em;}
+#tweet a {color:#ff8105;}
+#stay_connected  {float:left; padding:20px 0 0 20px;}
+
+/* Landing Pages   ----------------------------------------------------------------------------------------------------------------------------- */
+#landing_details {padding-top:10px;}
+#landing_details img {float:left; padding:0 20px 20px 0;}
+#landing_details h3 {padding-bottom:10px;}
+
+#landing_results {clear:left;}
+
+
+/* Footer Elements ----------------------------------------------------------------------------------------------------------------------------- */
+#footer a {color:#fff;}
+#service_support {padding:10px 0 0 10px; float:left; width:295px;}
+#service_support h4 {border-bottom:1px dotted #fff; font-size:1.2em; padding-bottom:5px; margin-bottom:5px; color:#fff;}
+#service_support ul {list-style:disc; color:#f89828; font-size:1.1em; margin-left:20px;}
+#service_support ul li {float:left; width:136px;}
+
+#hot_ticket_picks {padding-top:10px; float:left; margin-left:20px; width:295px;}
+#hot_ticket_picks h4 {border-bottom:1px dotted #fff; font-size:1.2em; padding-bottom:5px; margin-bottom:5px; color:#fff;}
+#hot_ticket_picks ul {list-style:disc;color:#f89828; font-size:1.1em; margin-left:20px;}
+#hot_ticket_picks ul li {float:left; width:145px;}
+
+#landing_pages {padding-top:10px; float:left; margin-left:20px; width:295px;}
+#landing_pages h4 {border-bottom:1px dotted #fff; font-size:1.2em; padding-bottom:5px; margin-bottom:5px; color:#fff;}
+#landing_pages ul {list-style:disc;color:#f89828; font-size:1.1em; margin-left:20px;}
+#landing_pages ul li {float:left; width:145px;}
+
+#tizzet_guarantee {float:right; background:url(/images/core/footer-payment_options.gif) no-repeat; width:308px; height:150px; padding:42px 0 0 28px;}
+#tizzet_guarantee h3 {color:#fff;}
+#tizzet_guarantee p.secure_transactions {font-size:25px; color:#fff; padding-top:5px;}
+
+#copyright {clear:both; padding-top:20px;}
+#copyright img {float:right;}
+#copyright p {float:left; color:#666; font-size:1.1em;}
+
+/* Base Form Elements --------------------------------------------------------------------------------------------------------------------------- */
+.base li {font-size:12px}
+.base li input[text] {width:250px; height:20px;}
+.base li textarea {height:50px; margin-bottom:20px!important;}
+.base fieldset.legend_fields legend {font-size:12px; color:#ff8105; padding-bottom:10px; text-transform:capitalize;}
+.base li input[checkbox] {height:20px;}
+.base li label {width:150px; display:inline-block; color:#333; vertical-align:top; margin-bottom:20px;}
+.base .buttons { padding-top:10px; margin-left: 150px;}
+.base .buttons input {width:100px!important;}
+.base .fieldWithErrors {width:200px!important; display:inline;}
+.base .fieldWithErrors input {border:red 1px solid;}
+.numbr {width:50px;}
+
+/* Enquiry Form Elements ------------------------------------------------------------------------------------------------------------------------ */
+#enquiry_form {width:200px; height:260px; padding:20px; background:url(../images/core/form-bg.jpg);}
+
+/* Order Form Elements ------------------------------------------------------------------------------------------------------------------------ */
+#order_form li {margin-top:20px;}
+#order_form li.num input, #order_form li.num input {width:30px;}
+#order_form li textarea {height:50px;}
+#order_form li.num label {width:200px;}
+#order_form li label#month {padding-left:200px; width:80px;}
+#order_form li label#year {padding-left:20px; width:80px;}
+#pandp {width:100px;}
+#cost_of_tickets {width:100px;}
+
+/* Sell Ticket Elements ------------------------------------------------------------------------------------------------------------------------ */
+body#sell-page #primary h2 {color:#ff8105; margin-top:20px;}
+#ticket_date {width:215px!important; margin-right:10px;}
+#datefield img {float:right; padding:3px 169px 0 0;}
+#new_ticket_form {padding-bottom:20px;}
+#new_ticket_form li.num input, #order_form li.num input {width:30px;}
+#new_ticket_form li.num label {width:200px;}
+#new_ticket_form li label#month {padding-left:200px; width:80px;}
+#new_ticket_form li label#year {padding-left:20px; width:80px;}
+#new_ticket_form li ul li {margin-top:10px; float:left;}
+#new_ticket_form li.radio {padding-bottom:10px; margin-bottom:20px;}
+#new_ticket_form li.radio li {height:20px;}
+#new_ticket_form li.radio input {width:30px; margin-left:20px; float:left; height:auto;}
+#new_ticket_form li.radio label {width:100px;}
+
+#seating_type label {margin-bottom:5px;}
+#seating_info li {width:500px;}
+#seating_info li label {margin-bottom:5px;}
+
+#price_field {padding-top:20px;}
+
+/* New User Form Elements ------------------------------------------------------------------------------------------------------------------------ */
+#signup_form {padding-bottom:20px;}
+#signup_form li {margin-top:20px;}
+#signup_form li textarea {width:270px; height:50px;}
+#signup_form input.agreement {margin-left:150px; display:inline;}
+
+/* Member Update */
+#member_update input {width:370px!important;}
+#member_update .buttons input {width:100px!important;}
+
+/* Contact Us Elements ---------------------------------------------------------------------------------------------------------------------------- */
+#social_links {float:right; width:300px; height:200px; font-size:12px;}
+#social_links li {height:40px; padding-left:50px; line-height:40px; margin-bottom:10px;}
+#social_links li#twitter {background:url(/images/core/twitter-icon.gif) no-repeat;}
+#social_links li#myspace {background:url(/images/core/myspace-icon.gif) no-repeat;}
+#social_links li#youtube {background:url(/images/core/youtube-icon.gif) no-repeat;}
+
+#contact_details {float:left; width:300px; font-size:12px;}
+#contact_details h3 {margin-bottom:10px!important;}
+#contact_details #phone {padding-top:10px;}
+
+/* Buy Ticket Elements ----------------------------------------------------------------------------------------------------------------------------- */
+body#buy-page #primary h2 {color:#ff8105; margin-top:20px;}
+#total {font-weight:bold;}
+
+/* My Account Elements ----------------------------------------------------------------------------------------------------------------------------- */
+
+table.simple {width:100%;margin-bottom:15px;}
+table.simple thead {background:url(/images/core/table_header-bg.jpg); color:white; height:40px;}
+table.simple thead th {font-size:11px;font-weight:bold;text-align:center; height:40px; padding:0!important; line-height:40px;}
+table.simple tbody tr {border-bottom:1px solid gray;}
+table.simple tbody td {text-align:center;}
+
+.ta_left {text-align:left;}
+.ta_right {text-align:right;}
+.ta_center {text-align:center;}
+
+ul.breadcrumb {margin-bottom:20px;}
+ul.breadcrumb li {display:inline;font-size:12px;}
+ul.breadcrumb li a {font-size:12px;text-decoration:none;}
+
+a.tdn {text-decoration:none;}
+a.tdn:hover {text-decoration:underline;}
+
+#errorExplanation p {padding-bottom:10px;}
+#errorExplanation ul {margin-bottom:20px;}
+#errorExplanation ul li {font-size:1.2em;list-style:disc inside;}
+
+em {color:#ff8105}

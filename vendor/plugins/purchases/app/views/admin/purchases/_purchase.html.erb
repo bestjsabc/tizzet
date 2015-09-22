@@ -1,0 +1,17 @@
+<li class='clearfix record <%= cycle("on", "on-hover") %>' id="<%= dom_id(purchase) -%>">
+  <% unless purchase.nil? %>
+  <span class='title'>
+    <span class='actions'>
+      <%= link_to refinery_icon_tag("application_edit.png"), edit_admin_purchase_path(purchase),
+           :title => 'Edit this purchase' %>
+       <%= link_to refinery_icon_tag("delete.png"), admin_purchase_path(purchase),
+           :class => "cancel confirm-delete",
+           :title => 'Remove this purchase forever' %>
+    </span>
+    <%= "#{purchase.event} - #{pluralize(purchase.quantity, "ticket")} - #{purchase.created_at.strftime("%d %b %Y -  %l:%M%p")}" %>
+    <%- unless PaymentNotification.find_by_purchase_id(purchase.id).nil? -%>
+      <p><strong>Paypal Transaction ID: </strong><%= PaymentNotification.find_by_purchase_id(purchase.id).transaction_id %></p>
+    <%- end -%>
+  </span>
+  <% end %>
+</li>

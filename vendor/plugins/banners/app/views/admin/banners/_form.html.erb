@@ -1,0 +1,28 @@
+<%= error_messages_for :banner -%>
+<% form_for [:admin, @banner], :html => {:multipart => true} do |f| -%>
+  
+  <div class='field'>
+    <%= f.label :product_id -%>
+    <%- @products = Product.all -%>
+    <%= f.select :product_id, @products.map {|p| [p.event, p.id]} -%>
+  </div>
+  
+  <% if params[:action] =~ /(edit)|(update)/ %>
+    <div>
+      <label>Current Image</label>
+      <%= image_fu @banner, :medium %>
+    </div>
+  <% end %>
+  
+  <div class='field'>
+    <%= f.label :uploaded_data, 'Banner' -%>
+    <%= f.file_field :uploaded_data -%>
+  </div>  
+  
+  <div class='field'>
+    <%= f.label :archived -%>
+    <%= f.check_box :archived -%>
+  </div>
+  
+  <%= render :partial => "/shared/admin/form_actions", :locals => {:f => f, :continue_editing => false} %>
+<% end -%>

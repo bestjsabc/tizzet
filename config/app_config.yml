@@ -1,0 +1,9 @@
+development:
+  paypal_url: "https://www.paypal.com/au/cgi-bin/webscr"
+  buyer_fee_percentage: 10
+  seller_fee_percentage: 10
+
+production:
+  paypal_url: "https://www.paypal.com/au/cgi-bin/webscr"
+  buyer_fee_percentage: 10
+  seller_fee_percentage: 10

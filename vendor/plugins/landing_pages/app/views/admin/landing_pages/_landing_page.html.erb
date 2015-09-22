@@ -1,0 +1,17 @@
+<% if landing_page.parent_id.nil? %>
+<li class='clearfix record <%= cycle("on", "on-hover") %>' id="<%= dom_id(landing_page) -%>">
+  <span class='title'>
+    <span class='actions'>
+      <%= link_to refinery_icon_tag("application_go.png"), landing_page_url(landing_page),
+          :title => 'View this Landing Page<br/><em>Opens in a new window</em>',
+          :target => "_blank" %>
+      <%= link_to refinery_icon_tag("application_edit.png"), edit_admin_landing_page_path(landing_page),
+           :title => 'Edit this landing_page' %>
+      <%= link_to refinery_icon_tag("delete.png"), admin_landing_page_path(landing_page),
+          :class => "cancel confirm-delete",
+          :title => 'Remove this landing_page forever' %>
+    </span>
+    <%=h landing_page.title %> <span class="preview">&nbsp;</span>
+  </span>
+</li>
+<%- end -%>

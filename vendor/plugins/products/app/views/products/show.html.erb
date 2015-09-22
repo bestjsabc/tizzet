@@ -1,0 +1,134 @@
+<%= content_for :body_id, "buy" %>
+<%- content_for :additional_javascripts do -%>
+  <script src="/javascripts/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/javascripts/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script> 
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+	    $("#order_form").validationEngine({
+  		  validationEventTriggers:"keyup blur",
+  		  animateSubmit:false
+  		});   
+    });
+  </script>
+<%- end -%>
+
+<div id="breadcrumbs">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/search/<%= @ticket.host %>"><%= @ticket.host %></a></li>
+  </ul>
+</div>
+<h1>Buy Tickets For <%= @ticket.host %></h1>
+<%= error_messages_for :purchase %>
+<h2>Step 1: Event Details</h2>
+<table>
+  <tr>
+    <th>Event Name</th>
+    <th>Location of Event</th>
+    <th>Date of Event</th>
+  </tr>
+  <tr>
+    <td><%= @ticket.host %> | <%= @ticket.event %></td>
+    <td><%= @ticket.location %></td>
+    <td><%= @ticket.date.strftime("%a, %e %B, %Y") unless ticket.date.nil? %></td>
+  </tr>
+</table>
+<h2>Step 2: Review Details</h2>
+<% form_for @purchase, :html => {:id => "order_form", :class => "base"} do |f| %>
+  <table>
+    <tr>
+      <th>Your Ticket</th>
+      <th>How Many</th>
+      <th class="ta_right">Price</th>
+      <th class="ta_right">Post &amp; Packing Fees</th>
+      <th class="ta_right"><strong>Total</strong></th>
+    </tr>
+    <tr>
+      <td>
+        <%= @ticket.seating_type %>
+      </td>
+      <td>
+        <% if @ticket.individual_sales %>
+      		(<%= @ticket.quantity %> available)</label>
+      		<%= f.select :quantity, @ticket.allowed_purchase_quantites, { :include_blank => true }, :class => "ticket_quantity" %>
+          <%= f.hidden_field :price, :value => @ticket.price %>	
+      	<% else %>
+      		<%= @ticket.quantity %>
+      		<%= f.hidden_field :quantity, :value => @ticket.quantity %>	
+      	<% end %>
+        at $<%= @ticket.price %> per ticket.
+      </td>
+      <td id="cost_of_tickets" class="ta_right">
+        <% if @ticket.individual_sales %>
+    		
+      	<% else %>
+      		$<%= @ticket.quantity * @ticket.price %>
+      		<%= f.hidden_field :quantity, :value => @ticket.quantity * @ticket.price %>	
+      	<% end %>
+      </td>
+      <td id="pandp" class="ta_right">
+        <% if @ticket.individual_sales %>
+    		
+      	<% else %>
+      		$<%= @ticket.quantity * @ticket.price / 100 %>
+      		<%= f.hidden_field :quantity, :value => @ticket.quantity * @ticket.price / 100 %>	
+      	<% end %>      
+      </td>
+      <td id="total" class="ta_right">
+        <% if @ticket.individual_sales %>
+    		
+      	<% else %>
+      		$<%= (@ticket.quantity * @ticket.price / 100) + (@ticket.quantity * @ticket.price) %>
+      		<%= f.hidden_field :quantity, :value => (@ticket.quantity * @ticket.price / 100) + (@ticket.quantity * @ticket.price) %>	
+      	<% end %>      
+      </td>    
+    </tr>
+  </table>
+
+<h2>Step 3: Delivery &amp; Billing Address Information</h2>
+<ul>
+  <li>
+    <%= f.label :title %>
+    <%= f.select :title, Member.salutation.map{|salutation| [salutation, salutation]} %>
+  </li>
+  <li>
+    <%= f.label :first_name, "First Name <em>*</em>" %>
+    <%= f.text_field :first_name %>
+  </li>
+  <li>
+    <%= f.label :last_name, "Last Name <em>*</em>" %>
+    <%= f.text_field :last_name %>
+  </li>
+  <li>
+    <%= f.label :address, "Address <em>*</em>" %>
+    <%= f.text_field :address %>
+  </li>
+  <li>
+    <%= f.label :city, "City <em>*</em>" %>
+    <%= f.text_field :city %>
+  </li>
+  <li>
+    <%= f.label :post_code, "Postcode <em>*</em>" %>
+    <%= f.text_field :post_code %>
+  </li>
+  <li>
+    <%= f.label :country, "Country <em>*</em>" %>
+    <%= f.text_field :country %>
+  </li>
+  <li>
+    <%= f.label :day_phone %>
+    <%= f.text_field :day_phone %>
+  </li>
+  <li>
+    <%= f.label :home_phone %>
+    <%= f.text_field :home_phone %>
+  </li>
+  <li>
+    <%= f.label :mobile_phone %>
+    <%= f.text_field :mobile_phone %>
+  </li>
+</ul>
+<ul>
+  <li class="buttons"><label>&nbsp;</label><input type="submit" value="Buy" id="buy"></li>
+</ul>
+<% end %>

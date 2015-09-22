@@ -1,0 +1,105 @@
+<h1>Purchase Details</h1>
+<h2>Ticket Information</h2>
+<table class="purchase_details">
+  <thead>
+    <tr>
+      <th>Name of event / artist</th>
+      <th>Price Per Ticket</th>
+      <th>Quantity</th>
+      <th><strong>Total</strong></th>
+      <th>PayPal Trx Id</th>
+      <th>Buyer Has Received</th>
+      <th>Payment to Seller?</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <tr>
+      <td><%= @purchase.event %></td>
+      <td><%= number_to_currency(@purchase.price, :unit => "$") %></td>
+      <td><%= @purchase.quantity %></td>
+      <td><strong><%= number_to_currency(@purchase.price * @purchase.quantity, :unit => "$") %></strong></td>
+      <td><%= PaymentNotification.find_by_purchase_id(@purchase.id).transaction_id unless PaymentNotification.find_by_purchase_id(@purchase.id).nil? %></td>
+      <%- if @purchase.received -%>
+        <td><img src="/images/core/tick.png" alt="" /></td>
+      <%- else -%>
+        <td><img src="/images/core/cross.png" alt="" /></td>
+      <%- end -%>
+      <%- if @purchase.seller_paid -%>
+        <td><img src="/images/core/tick.png" alt="" /></td>
+      <%- else -%>
+        <td><%= link_to "I have paid the seller", admin_seller_paid_path(@purchase) %></td>
+      <%- end -%>
+    </tr>
+  </tbody>
+  
+</table>
+<h2>Seller Information</h2>
+<% unless @purchase.seller_id.nil? %>
+	<% @member = Member.find(@purchase.seller_id) %>
+	<table class="purchase_details">
+	  <tr>
+	    <th colspan="2">Name:</th>
+	    <th>Email:</th>
+	    <th>Address:</th>
+	    <th>Phone:</th>
+	  </tr>
+	  <tr>
+	    <td colspan="2"><%= @member.first_name %> <%= @member.last_name %></td>
+	    <td><%= @member.email %></td>
+	    <td>
+	      <ul>
+	        <li><%= @member.address %></li>
+	        <li><%= @member.city %></li>
+	        <li><%= @member.post_code %></li>
+	        <li><%= @member.country %></li>
+	      </ul>
+	    </td>
+	    <td>
+	      <ul>
+	        <li>Day Phone: <%= @member.day_phone %></li>
+	        <li>Home Phone: <%= @member.home_phone %></li>
+	        <li>Mobile Phone: <%= @member.mobile_phone %></li>
+	      </ul>
+	    </td>
+	  </tr>
+	  <tr>
+	    <th colspan="3">Bank Account Number</th>
+	    <th>BSB Number</th>
+	    <th>Paypal Email</th>
+	  </tr>
+	  <tr>
+	    <td colspan="3"><%= @member.aus_bank_num %></td>
+	    <td><%= @member.bsb_num %></td>
+	    <td><%= @member.paypal_email %></td>
+	  </tr>
+	</table>
+	<h2>Buyer Information</h2>
+	<table class="purchase_details">
+	  <tr>
+	    <th colspan="2">Name:</th>
+	    <th>Email:</th>
+	    <th>Address:</th>
+	    <th>Phone:</th>
+	  </tr>
+	  <tr>
+	    <td colspan="2" class="first_col"><%= @purchase.first_name %> <%= @purchase.last_name %></td>
+	    <td><%= @purchase.email %></td>
+	    <td>
+	      <ul>
+	        <li><%= @purchase.address %></li>
+	        <li><%= @purchase.city %></li>
+	        <li><%= @purchase.post_code %></li>
+	        <li><%= @purchase.country %></li>
+	      </ul>
+	    </td>
+	    <td>
+	      <ul>
+	        <li>Day Phone: <%= @purchase.day_phone %></li>
+	        <li>Home Phone: <%= @purchase.home_phone %></li>
+	        <li>Mobile Phone: <%= @purchase.mobile_phone %></li>
+	      </ul>
+	    </td>
+	  </tr>
+	</table>
+<% end %>

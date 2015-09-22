@@ -1,0 +1,151 @@
+have_func: checking for mysql_ssl_set()... -------------------- yes
+
+"gcc -o conftest -I/usr/include/ruby-1.9.1/x86_64-linux -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing   -g -DNDEBUG -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wall -fno-strict-aliasing -fPIC conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -L/build/buildd/ruby1.9.1-1.9.3.484/debian/lib -rdynamic -Wl,-export-dynamic    -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -ldl  -lruby-1.9.1  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"gcc -o conftest -I/usr/include/ruby-1.9.1/x86_64-linux -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing   -g -DNDEBUG -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wall -fno-strict-aliasing -fPIC conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -L/build/buildd/ruby1.9.1-1.9.3.484/debian/lib -rdynamic -Wl,-export-dynamic    -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -ldl  -lruby-1.9.1 -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -ldl  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:4:53: error: ‘mysql_ssl_set’ undeclared (first use in this function)
+ int t() { void ((*volatile p)()); p = (void ((*)()))mysql_ssl_set; return 0; }
+                                                     ^
+conftest.c:4:53: note: each undeclared identifier is reported only once for each function it appears in
+conftest.c:4:28: warning: variable ‘p’ set but not used [-Wunused-but-set-variable]
+ int t() { void ((*volatile p)()); p = (void ((*)()))mysql_ssl_set; return 0; }
+                            ^
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: int t() { void ((*volatile p)()); p = (void ((*)()))mysql_ssl_set; return 0; }
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+/* end */
+
+"gcc -o conftest -I/usr/include/ruby-1.9.1/x86_64-linux -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing   -g -DNDEBUG -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wall -fno-strict-aliasing -fPIC conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -L/build/buildd/ruby1.9.1-1.9.3.484/debian/lib -rdynamic -Wl,-export-dynamic    -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -ldl  -lruby-1.9.1 -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -ldl  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:4:1: warning: implicit declaration of function ‘mysql_ssl_set’ [-Wimplicit-function-declaration]
+ int t() { mysql_ssl_set(); return 0; }
+ ^
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: int t() { mysql_ssl_set(); return 0; }
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+/* end */
+
+--------------------
+
+have_func: checking for rb_str_set_len()... -------------------- yes
+
+"gcc -o conftest -I/usr/include/ruby-1.9.1/x86_64-linux -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing   -g -DNDEBUG -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wall -fno-strict-aliasing -fPIC conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -L/build/buildd/ruby1.9.1-1.9.3.484/debian/lib -rdynamic -Wl,-export-dynamic    -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -ldl  -lruby-1.9.1 -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -ldl  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:4:28: warning: variable ‘p’ set but not used [-Wunused-but-set-variable]
+ int t() { void ((*volatile p)()); p = (void ((*)()))rb_str_set_len; return 0; }
+                            ^
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: int t() { void ((*volatile p)()); p = (void ((*)()))rb_str_set_len; return 0; }
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+/* end */
+
+--------------------
+
+have_func: checking for rb_thread_start_timer()... -------------------- no
+
+"gcc -o conftest -I/usr/include/ruby-1.9.1/x86_64-linux -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing   -g -DNDEBUG -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wall -fno-strict-aliasing -fPIC conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -L/build/buildd/ruby1.9.1-1.9.3.484/debian/lib -rdynamic -Wl,-export-dynamic    -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -ldl  -lruby-1.9.1 -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -ldl  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:4:53: error: ‘rb_thread_start_timer’ undeclared (first use in this function)
+ int t() { void ((*volatile p)()); p = (void ((*)()))rb_thread_start_timer; return 0; }
+                                                     ^
+conftest.c:4:53: note: each undeclared identifier is reported only once for each function it appears in
+conftest.c:4:28: warning: variable ‘p’ set but not used [-Wunused-but-set-variable]
+ int t() { void ((*volatile p)()); p = (void ((*)()))rb_thread_start_timer; return 0; }
+                            ^
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: int t() { void ((*volatile p)()); p = (void ((*)()))rb_thread_start_timer; return 0; }
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+/* end */
+
+"gcc -o conftest -I/usr/include/ruby-1.9.1/x86_64-linux -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing   -g -DNDEBUG -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wall -fno-strict-aliasing -fPIC conftest.c  -L. -L/usr/lib -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -L/build/buildd/ruby1.9.1-1.9.3.484/debian/lib -rdynamic -Wl,-export-dynamic    -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -ldl  -lruby-1.9.1 -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -ldl  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:4:1: warning: implicit declaration of function ‘rb_thread_start_timer’ [-Wimplicit-function-declaration]
+ int t() { rb_thread_start_timer(); return 0; }
+ ^
+/tmp/ccXQmaAK.o: In function `t':
+/home/cale/projects/github/Tizzet_03_12_14_Export/rails/mysql/ruby/1.9.1/gems/mysql-2.8.1/ext/mysql_api/conftest.c:4: undefined reference to `rb_thread_start_timer'
+collect2: error: ld returned 1 exit status
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: int t() { rb_thread_start_timer(); return 0; }
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+/* end */
+
+--------------------
+
+have_header: checking for mysql.h... -------------------- yes
+
+"gcc -E -I/usr/include/ruby-1.9.1/x86_64-linux -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I. -D_FORTIFY_SOURCE=2  -D_FORTIFY_SOURCE=2 -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing   -g -DNDEBUG -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wall -fno-strict-aliasing -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+/* end */
+
+--------------------
+

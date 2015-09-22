@@ -1,0 +1,48 @@
+<%= content_for :body_id, "search" %>
+<% content_for :title do %>
+  <%= @query.titleize %>
+<% end %>
+<div id="breadcrumbs">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><%= @query.gsub!(/_/, ' ') %></li>
+  </ul>
+</div>
+<%- if @query.nil? -%>
+  <h1>Ticket For Sale</h1>
+<%- else -%>
+  <h1>You searched for: <%= @query %></h1>
+<%- end -%>
+<ul id="search_results">
+<% @tickets.each do |ticket| %>
+  <li>
+    <ul>
+      <li id="icon" class="<%= ticket.event_type.gsub(" ", "_").downcase %>"></li>
+      <li id="location">
+        <h3>Event</h3>
+        <p><%= ticket.event %></p>
+        <p>Location: <%= ticket.location %></p>
+      </li>
+      <li id="date">        
+        <h3>Date/Time</h3>
+        <p><%= ticket.date.strftime("%a, %e %B, %Y") unless ticket.date.nil? %></p>
+        <p>Start Time: <%= ticket.start_time.strftime("%H:%M") unless ticket.start_time.nil? %></p>
+      </li>
+      <li id="seating">
+        <h3>Seating</h3>
+        <p><%= ticket.seating_type %></p>
+        <%- if ticket.seating_type == "Seated" -%>
+          <p class="seating_info"><strong>Seating Block:</strong> <%= ticket.seating_block  %></p>
+          <p class="seating_info"><strong>Seating Row:</strong> <%= ticket.seating_row %></p>
+        <%- end -%>
+      </li>
+      <li id="buy">
+        <h3>Price</h3>
+        <p><%=h number_to_currency ticket.price, :unit => '$', :separator => ".", :delimiter => "." %></p>
+        <p><%= ticket.quantity_on_hand %> tickets available</p>
+        <%= link_to 'Buy', new_purchase_path(:product_id => ticket.id) %>
+      </li>
+    </ul>
+  </li>
+<% end %>
+</ul>

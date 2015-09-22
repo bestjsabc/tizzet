@@ -1,0 +1,7 @@
+
+## Add a unique application name, repository URL, and live URL for this project.
+
+application: tizzet
+#repository: ssh://capistrano@203.153.228.205/var/git/tizzet_refinery.git
+repository: svn://webfirm1/Tizzet/rails
+live_domain: tizzet.com.au

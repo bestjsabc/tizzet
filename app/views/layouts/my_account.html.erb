@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title><%= @title || @action || 'Tizzet' %></title>
+    <%= stylesheet_link_tag 'screen', 'gritter/jquery.gritter' %>
+    <script src="/javascripts/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/javascripts/cufon-yui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/javascripts/cufon.avenir.roman.font.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/javascripts/jquery.labelit.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/javascripts/jquery.gritter.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/javascripts/jquery.cycle.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/javascripts/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/javascripts/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+          
+    <script src="/javascripts/presentation.js" type="text/javascript" charset="utf-8"></script>    
+    <script type="text/javascript" charset="utf-8">
+      Cufon.replace('h1');
+      Cufon.replace('h2');
+      Cufon.replace('h3');
+      Cufon.replace('p.secure_transactions');
+    </script>
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function(){
+  	    $("#mailing_list").validationEngine();   
+      });
+    </script>
+    <%= yield :additional_javascripts %>
+  </head>
+  <body id="<%= yield :body_id or "unset" %>-page">
+    <div id="notice">
+      <% unless flash.empty? %>
+      <script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+          $.gritter.add({
+        		title: 'Notice',
+        		text: '<%= flash[:notice] or flash[:error] %>',
+        		sticky: false,
+        		time: 3000
+        	});
+        });
+      </script>
+      <% end %>          
+    </div>
+    <div id="headerwrap">
+      <div id="header">
+        <div id="nav" class="clearfix">
+          <ul id="main-nav">                        
+            <li id="login_logout">
+              <% if current_member %>
+                <%= link_to 'sign out', member_session_path, :method => :delete, :confirm => "Are you sure you want to logout?", :id => "sign_out" %>
+              <% else %>
+                <%= link_to 'log in', '#', :id => "log_in" %>
+              <% end %>
+            </li>
+            <% if current_member %>
+              <li id="welcome">
+                Welcome, <%= link_to current_member.display, url_for(current_member) %>
+              </li>
+            <% end %>
+            <li id="help"><a href="/pages/help">Help</a></li>
+            <li id="sell_tickets"><a href="/products/new">Sell Tickets</a></li>
+            <li id="buy_tickets"><a href="/products">Buy Tickets</a></li>
+            <li id="my_account">
+            <%- if current_member.nil? -%>
+              <%= link_to "Sign Up", "/members/new" %>              
+            <%- else -%>
+              <%= link_to "My Account", url_for(current_member) %>
+            <% end %>
+            </li>
+            <li id="home"><a href="/">Home</a></li>
+          </ul>
+        </div>
+        <div id="ticket_guarantee">
+          <a href="/pages/ticket-gaurantee"><img src="/images/core/ticket_guarantee.gif" alt="Our Ticket Guarantee" /></a>
+        </div>
+        <div id="login_form">
+          <% form_for :member_session, :url => '/member_session' do |f| %>
+            <ul>
+              <li class="fields">
+                <%= f.label 'email', 'Email' %>
+                <%= f.text_field 'email', :value => nil, :autocomplete => "off", :size => 25 %>
+              </li>
+              <li class="fields">
+                <%= f.label 'password' %>
+                <%= f.password_field 'password', :value => nil, :autocomplete => "off" %>
+              </li>
+              <li>
+                <%= submit_tag '', {"id" => "login_btn"} %>
+              </li>
+              <li id="remember">
+                <%= check_box_tag 'remember_me', '1', params[:remember_me] %><%= label_tag 'remember_me', 'Remember me' %>
+              </li>
+              <li id="sign_up">
+                <a href="/members/new">Sign Up</a>
+              </li>
+            </ul>
+          <% end %>
+        </div>        
+        <a href="/"><img src="/images/core/logo-tizzet.gif" id="logo" alt="Tizzet" /></a>
+        <form id="search_form" action="/search" accept-charset="utf-8">
+          <ul>
+            <li id="title">
+              <h2>Start finding tickings</h2>
+            </li>
+            <li id="search_field">
+              <label for="search">search here</label>
+              <input type="text" name="query" value="" id="search" autocomplete="off"/>
+            </li>
+            <li>
+              <input type="submit" name="search_btn" value="" id="search_btn"/>
+            </li>
+          </ul>
+        </form>
+        <ul id="cat-nav">
+          <li id="all_events"><a href="/products">All Events</a></li>
+          <li id="concerts"><a href="/search/concert">Concerts</a></li>
+          <li id="sports"><a href="/search/sport">Sports</a></li>
+          <li id="theatre_arts"><a href="/search/theatre">Arts &amp; Theatre</a></li>
+          <li id="secure"><a href="/pages/security-statement">100% Secure</a></li>
+        </ul>        
+      </div>
+    </div>
+    <div id="contentwrap">     
+      <div id="content" class="clearfix">     	                
+        <%= yield %>
+      </div>
+      <div id="affiliations">
+        <div id="twitter_bubble">
+         	<div id="tweet"></div>
+        </div>
+        <img id="stay_connected" src="/images/core/stay_connected.gif" alt="Stay Connected with Twitter" />
+        <ul id="logos">
+          <li><a rel="external" href="http://www.twitter.com/tizzet"><img src="/images/core/twitter-icon.gif" alt="Twitter Logo" /></a></li>
+          <li><a rel="external" href="http://www.facebook.com/tizzet"><img src="/images/core/facebook-icon.gif" alt="Facebook" /></a></li>
+          <li><a rel="external" href="http://www.myspace.com/tizzet"><img src="/images/core/myspace-icon.gif" alt="MySpace" /></a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="footerwrap">
+      <div id="footer">
+        <div id="tizzet_guarantee">
+          <h3>At Tizzet we guarantee</h3>
+          <p class="secure_transactions">secure transactions</p>
+        </div>
+        <div id="service_support">
+          <h4>SERVICE &amp; SUPPORT</h4>
+          <ul>
+            <li><%= link_to 'About Us', '/pages/about-us' %></li>
+            <li><%= link_to 'Contact Us', '/pages/contact-us' %></li>          
+            <li><%= link_to 'Privacy', '/pages/privacy-policy' %></li>
+            <li><%= link_to 'Terms &amp; Conditions', '/pages/terms-conditions' %></li>
+            <li><%= link_to 'Help', '/pages/help' %></li>
+            <li><%= link_to 'FAQs', '/pages/faqs' %></li>
+            <li><%= link_to 'Refund Policy', '/pages/refund-policy' %></li>
+          </ul>
+        </div>
+        <div id="hot_ticket_picks">
+          <h4>OUR HOT TICKET PICKS</h4>
+          <ul>
+            <%- if @hot_tickets.size > 0 -%>
+              <%- @hot_tickets.each do |ticket|-%>
+                <li>
+                  <%= link_to ticket.event, product_path(ticket)%>
+                </li>
+              <%- end -%>
+            <%- else -%>
+              <li>No Hot Pick Yet</li>
+            <%- end -%>
+          </ul>
+        </div>
+        <%- if @landing_pages.size > 0 -%>
+         <div id="landing_pages">
+            <h4>EVENTS</h4>
+            <ul>
+              <%- @landing_pages.each do |landing_page|-%>
+                <li>
+                  <%= link_to landing_page.title, events_path(landing_page.id, landing_page.title)%>
+                </li>
+              <%- end -%>
+            </ul>
+          </div>
+        <%- end -%>
+        <div id="copyright">
+          <a rel="external nofollow" href="http://www.webfirm.com"><img src="/images/core/logo-webfirm.gif" alt="Webfirm" /></a>
+          <p>&copy; Copyright <%= Time.now.year %> Tizzet</p>
+        </div>
+      </div>
+    </div>
+    <!---Google Analytics Code start here-->
+    <script type="text/javascript"> 
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-19916659-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script> 
+    <!---Google Analytics Code End here-->
+  </body>
+</html>

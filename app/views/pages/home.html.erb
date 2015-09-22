@@ -1,0 +1,27 @@
+<%- content_for :title, @meta.browser_title.blank? ? "" : @meta.browser_title -%>
+<%- content_for :body_id, "home" -%>
+<div id="banner">
+  <%- @banners = Banner.public.all -%>
+  <%- @banners = Banner.find(:all, :conditions => ["parent_id is NULL and (archived = ? or archived IS NULL)", false])-%>
+  <ul id="featured">
+    <%- @banners.each do |banner| -%>
+      <%- unless banner.product.nil? -%>
+        <%- if banner.product.list_until >= Date.today && banner.product.status = 1 -%>
+        <li>
+          <h3><%= trim_description_length(banner.product.event, 20) %></h3>
+          <p>Tickets for <%= banner.product.date.strftime("%d-%m-%y") %> <%= banner.product.territory_state %></p>
+          <a href="/search/<%= banner.product.event.gsub(" ", "_").gsub("&", "").downcase %>">find</a>
+        </li>
+        <%- end -%>
+      <%- end -%>
+    <%- end -%>
+  </ul>
+  <ul id="hosts">
+    <%- @banners.each do |banner| -%>
+      <li>
+        <%= image_fu banner %>
+      </li>
+    <%- end -%>
+  </ul>
+</div>
+<%= render :partial => "/shared/content_page", :locals => {:show_submenu => false} %>

@@ -1,0 +1,33 @@
+<%= content_for :body_id, "my_account" %>
+<h1>My Account</h1>
+<h2>Tickets currently listed for sale</h2>
+<table>
+  <tr>
+    <th>Name of event / artist</th>
+    <th>Date of event</th>
+    <th>Location</th>
+    <th>Time of event</th>
+    <th>Price per ticket</th>
+    <th>Quantity available</th>
+    <th>Splits (multiples)</th>
+    <th>Date listing ends</th>
+    <th>Delete / Remove listing</th>
+    <th>Edit Listing</th>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
+</table>
+<h2>Tickets Recently Sold</h2>
+<table>
+  <tr><th>Header</th></tr>
+  <tr><td>Data</td></tr>
+</table>
+<% semantic_form_for(@user, :html => {:class => "base"}) do |form| %>
+    <% form.inputs do %>
+      <%= form.inputs :login, :email, :title, :first_name, :last_name %>
+      <%= form.input :address, :as => :text %>
+    <%- end -%>
+    <%= form.buttons %>
+<% end %>
+  

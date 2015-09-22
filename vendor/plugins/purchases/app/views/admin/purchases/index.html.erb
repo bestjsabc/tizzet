@@ -1,0 +1,39 @@
+<div id='actions'>
+  <ul>
+    <li>
+      <%= render :partial => "/shared/admin/search", :locals => {:url => admin_purchases_url} %>
+    </li>
+  <% if !searching? and Purchase.count > 1 %>
+    <li>
+      <%= link_to "Reorder Purchases", admin_purchases_url, :id => "reorder_action", :class => "reorder_icon" %>
+      <%= link_to "Done Reordering Purchases", admin_purchases_url, :id => "reorder_action_done", :style => "display: none;", :class => "reorder_icon" %>
+    </li>
+  <% end %>
+  </ul>
+</div>
+<div id='records'>
+  <% if searching? %>
+    <h2>Search Results for "<%= params[:search] %>"</h2>
+    <% if @purchases.any? %>
+      <%= render :partial => "purchase", :collection => @purchases %>
+    <% else %>
+      <p>Sorry, no results found.</p>
+    <% end %>
+  <% else %>
+    <% if @purchases.any? %>
+      <%= will_paginate @purchases, :previous_label => '&laquo;', :next_label => '&raquo;' %>
+       <ul id='sortable_list'>
+        <%= render :partial => "sortable_list" %>
+       </ul>
+      <%= will_paginate @purchases, :previous_label => '&laquo;', :next_label => '&raquo;' %>
+    <% else %>
+      <p>
+        <strong>
+          There are no purchases yet.
+          Click "Create New Purchase" to add your first purchase.
+        </strong>
+      </p>
+    <% end %>
+  <% end %>
+</div>
+<%= render :partial => "/shared/admin/make_sortable", :locals => {:tree => false } if !searching? and Purchase.count > 1 %>

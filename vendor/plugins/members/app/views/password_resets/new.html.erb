@@ -1,0 +1,16 @@
+<h1>Forgot Password</h1>
+
+<p>Fill out the form below and instructions to reset your password will be emailed to you:<br /></p>
+
+<% form_tag password_resets_path, :id => "reset_form", :class => "base" do %>
+  <ul>
+    <li>
+      <label>Email:</label>
+      <%= text_field_tag "email" %>
+    </li>
+    <li>
+      <label>&nbsp;</label>
+      <%= submit_tag "Reset my password" %>
+    </li>
+  </ul>
+<% end %>

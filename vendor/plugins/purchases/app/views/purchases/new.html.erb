@@ -1,0 +1,151 @@
+<%= content_for :body_id, "buy" %>
+<%- content_for :additional_javascripts do -%>
+<link rel="stylesheet" href="/stylesheets/ui-lightness/jquery-ui-datepicker.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<script src="/javascripts/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+<script src="/javascripts/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script> 
+<script src="/javascripts/jquery-ui-1.8.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    $("#order_form").validationEngine({
+		  validationEventTriggers:"keyup blur",
+		  animateSubmit:false
+		});
+  });
+</script>
+<%- end -%>
+
+<div id="breadcrumbs">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <%- unless @ticket.blank? -%>
+      <li><a href="/search/<%= @ticket.host %>"><%= @ticket.host %></a></li>
+    <%- end -%>
+  </ul>
+</div>
+<%- unless @ticket.blank? -%>
+  <h1>Buy Tickets For <%= @ticket.host %></h1>
+  <%= error_messages_for :purchase %>
+  <h2>Step 1: Event Details</h2>
+  <table>
+    <tr>
+      <th>Event Name</th>
+      <th>Location of Event</th>
+      <th>Date of Event</th>
+    </tr>
+    <tr>
+      <td><%= @ticket.event %></td>
+      <td><%= @ticket.location %></td>
+      <td><%= @ticket.date.strftime("%a, %e %B, %Y") %></td>
+    </tr>
+  </table>
+  <h2>Step 2: Review Details</h2>
+  <% form_for @purchase, :html => {:id => "order_form", :class => "base"} do |f| %>
+    <table>
+      <tr>
+        <th>Your Ticket</th>
+        <th>How Many</th>
+        <th>Price</th>
+        <th>Tizzet Fee</th>
+        <th><strong>Total</strong></th>
+      </tr>
+      <tr>
+        <td>
+          <%= @ticket.seating_type %><br />
+          <%- if @ticket.seating_type == "Seated" -%>
+            Block: <%= @ticket.seating_block %><br />
+            Row: <%= @ticket.seating_row %>
+          <%- end -%>
+          <%= f.hidden_field :product_id, :value => @ticket.id %>	
+        </td>
+        <td>
+          <% if @ticket.individual_sales %>
+        		(<%= @ticket.quantity_on_hand %> available)</label>
+        		<%= f.select :quantity, @ticket.allowed_purchase_quantites, { :include_blank => true }, :class => "ticket_quantity validate[required]" %>
+            <%= f.hidden_field :price, :value => @ticket.price %>	
+        	<% else %>
+        		<%= @ticket.quantity_on_hand %>
+        		<%= f.hidden_field :quantity, :value => @ticket.quantity_on_hand %>	
+        	<% end %>
+          at <%= number_to_currency(@ticket.price, :unit => '$', :separator => ".", :delimiter => ".") %> per ticket.
+        </td>
+        <td id="cost_of_tickets">
+          <% if @ticket.individual_sales %>
+    		
+        	<% else %>
+        		<%= number_to_currency(@ticket.quantity_on_hand * @ticket.price, :unit => '$', :separator => ".", :delimiter => ".") %>
+        		<%= f.hidden_field :price, :value => @ticket.price %>	
+        	<% end %>
+        </td>
+        <td id="pandp">
+          <% if @ticket.individual_sales %>
+    		
+        	<% else %>
+        		<%= number_to_currency((@ticket.quantity_on_hand * @ticket.price / 100) * 10, :unit => '$', :separator => ".", :delimiter => ".") %>
+        	<% end %>      
+        </td>
+        <td id="total">
+          <% if @ticket.individual_sales %>
+    		
+        	<% else %>
+        		<%= number_to_currency(((@ticket.quantity * @ticket.price / 100) * 10) + (@ticket.quantity * @ticket.price), :unit => '$', :separator => ".", :delimiter => ".") %>
+        	<% end %>      
+        </td>    
+      </tr>
+    </table>
+  <h2>Step 3: Delivery &amp; Billing Address Information</h2>
+  <ul>
+    <li>
+      <%= f.label :email, "Email <em>*</em>" %>
+      <%= f.text_field :email, :class => "validate[custom[email]]", :value => current_member.email %>
+    </li>
+    <li>
+      <%= f.hidden_field :buyer_id, :value => current_member.id %>	
+      <%= f.label :title %>
+      <%= f.select :title, Member.salutation.map{|salutation| [salutation, salutation]}, :selected => current_member.title %>
+    </li>
+    <li>
+      <%= f.label :first_name, "First Name <em>*</em>" %>
+      <%= f.text_field :first_name, :class => "validate[required]", :value => current_member.first_name %>
+    </li>
+    <li>
+      <%= f.label :last_name, "Last Name <em>*</em>" %>
+      <%= f.text_field :last_name, :class => "validate[required]", :value => current_member.last_name %>
+    </li>
+    <li>
+      <%= f.label :address, "Address <em>*</em>" %>
+      <%= f.text_area :address, :class => "validate[required]", :value => current_member.address %>
+    </li>
+    <li>
+      <%= f.label :city, "City <em>*</em>" %>
+      <%= f.text_field :city, :class => "validate[required]", :value => current_member.city %>
+    </li>
+    <li>
+      <%= f.label :post_code, "Postcode <em>*</em>" %>
+      <%= f.text_field :post_code, :class => "validate[required,custom[onlyNumber],length[4,5]]", :value => current_member.post_code %>
+    </li>
+    <li>
+      <%= f.label :country, "Country <em>*</em>" %>
+      <%= f.text_field :country, :class => "validate[required]", :value => current_member.country, :height => 40 %>
+    </li>
+    <li>
+      <%= f.label :day_phone %>
+      <%= f.text_field :day_phone, :value => current_member.day_phone %>
+    </li>
+    <li>
+      <%= f.label :home_phone %>
+      <%= f.text_field :home_phone, :value => current_member.home_phone %>
+    </li>
+    <li>
+      <%= f.label :mobile_phone %>
+      <%= f.text_field :mobile_phone, :value => current_member.mobile_phone %>
+    </li>
+  </ul>
+  <ul>
+    <li class="buttons">
+      <input type="submit" value="Buy" id="buy">
+    </li>
+  </ul>
+  <% end %>
+<%- else -%>
+  <h1>Sorry, that ticket doesn't exist.</h1>
+<%- end -%>

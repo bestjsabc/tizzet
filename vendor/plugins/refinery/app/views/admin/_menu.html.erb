@@ -1,0 +1,21 @@
+<ul id="menu">
+  <% Refinery::Plugins.active.in_menu.each do |plugin| -%>
+    <%- unless plugin.title == "Images" || plugin.title == "Resources" || plugin.title == "Settings" -%>
+    <li class='tab' id='plugin_<%= plugin.title %>'>
+      <%= link_to plugin.title, plugin.url, :class => (plugin.highlighted?(params) ? "active" : "") %>
+    </li>
+    <%- end -%>
+  <% end -%>
+  <% if Refinery::Plugins.active.in_menu.many? -%>
+    <li>
+      <%= link_to "&nbsp;", "", :id => "menu_reorder", :title => "Reorder menu" %>
+      <%= link_to "&nbsp;", "", :id => "menu_reorder_done", :title => "I'm done reordering the menu", :style => "display: none;" %>
+    </li>
+  <% end %>
+  <li id='logout'>
+    <%= link_to "Log out", logout_url %>
+  </li>
+</ul>
+
+<input type='hidden' id='admin_authenticity_token' value='<%= form_authenticity_token %>' />
+
